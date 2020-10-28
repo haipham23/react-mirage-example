@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
-import App from './App';
+import Register from './Register';
 import reportWebVitals from './reportWebVitals';
+import setupServer from './setupServer'
+
+if (process.env.REACT_APP_ENV) {
+  setupServer({ environment: process.env.REACT_APP_ENV });
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Register />
   </React.StrictMode>,
   document.getElementById('root')
 );
