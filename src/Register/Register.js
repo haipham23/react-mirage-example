@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import axios from 'axios';
 
 import './Register.css';
+
 
 const initForm = {
   username: '',
   password: '',
 };
 
-const Register = () => {
+
+const Input = memo(({
+  name,
+  type,
+  onChange,
+  value,
+}) => (
+  <input
+    type={type}
+    name={name}
+    autoComplete="off"
+    placeholder={name}
+    value={value}
+    onChange={onChange}
+    data-testid={`${name}-form`}
+  />
+));
+
+
+const Register = memo(() => {
   const [form, setForm] = useState(initForm);
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -42,23 +62,17 @@ const Register = () => {
         !userId && (
           <>
             <h1 data-testid="register-start">Register</h1>
-            <input
-              type="text"
+            <Input
               name="username"
-              autoComplete="off"
-              placeholder="Username"
-              value={form.username}
+              type="text"
               onChange={onChange('username')}
-              data-testid="username-form"
+              value={form.username}
             />
-            <input
-              type="password"
+            <Input
               name="password"
-              autoComplete="off"
-              placeholder="Password"
-              value={form.password}
+              type="password"
               onChange={onChange('password')}
-              data-testid="password-form"
+              value={form.password}
             />
             <button
               onClick={onSave}
@@ -72,6 +86,6 @@ const Register = () => {
       }
     </div>
   );
-}
+});
 
 export default Register;
