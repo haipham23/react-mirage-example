@@ -3,13 +3,6 @@ import axios from 'axios';
 
 import './Register.css';
 
-
-const initForm = {
-  username: '',
-  password: '',
-};
-
-
 const Input = memo(({
   name,
   type,
@@ -25,24 +18,26 @@ const Input = memo(({
     onChange={onChange}
     data-testid={`${name}-form`}
   />
-));
+), (prev, next) => prev.value === next.value);
 
 
 const Register = memo(() => {
-  const [form, setForm] = useState(initForm);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState(null);
 
-  const onChange = (key) => ({ target: { value } }) => setForm({
-    ...form,
-    [key]: value
-  });
+  const onUsernameChange = ({ target: { value }}) => setUsername(value);
+  const onPasswordChange = ({ target: { value }}) => setPassword(value);
 
   const onSave = async () => {
     setIsLoading(true);
 
     try {
-      const { data: { id } } = await axios.post('http://local.mock/api/users', { ...form });
+      const { data: { id } } = await axios.post(
+        'http://local.mock/api/users',
+        { username, password }
+      );
       setUserId(id);
     } catch (e) {
       console.log(e);
@@ -65,14 +60,14 @@ const Register = memo(() => {
             <Input
               name="username"
               type="text"
-              onChange={onChange('username')}
-              value={form.username}
+              onChange={onUsernameChange}
+              value={username}
             />
             <Input
               name="password"
               type="password"
-              onChange={onChange('password')}
-              value={form.password}
+              onChange={onPasswordChange}
+              value={password}
             />
             <button
               onClick={onSave}
