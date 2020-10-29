@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const USERNAME = '[data-testid="username-form"]';
 const PASSWORD = '[data-testid="password-form"]';
 const SAVE = '[data-testid="save-button"]';

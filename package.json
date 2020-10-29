@@ -15,6 +15,7 @@
   "scripts": {
     "start": "REACT_APP_ENV=dev react-scripts start",
     "test": "REACT_APP_ENV=dev react-scripts test",
+    "lint": "eslint ./src",
     "build": "react-scripts build",
     "build:test": "REACT_APP_ENV=test yarn build",
     "test:e2e": "jest -c ./jest.e2e.config.js ./__tests__ --runInBand",
